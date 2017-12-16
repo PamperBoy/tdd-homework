@@ -1,4 +1,4 @@
-require 'spec_helper'
+require './spec_helper'
 require 'codebreaker' # load the file in app/codebreaker.rb
 
 RSpec.describe Codebreaker do
