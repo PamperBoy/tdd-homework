@@ -1,9 +1,14 @@
 class Codebreaker
   class Game
     attr_reader :output
+    INCORRECT_INPUT = "Try guessing a number with four digits"
+    NUMBER_MATCH = "-"
+    EXACT_MATCH = "+"
+    NO_MATCH = ""
 
     def initialize(output)
       @output = output
+      @feedback = ""
     end
 
     def start(secret_number)
@@ -14,37 +19,41 @@ class Codebreaker
     end
 
     def guess(input)
-      return if !(correct_input?(input))
-      compare_input(input)
+      correct_input?(input) ? compare_input_to_secret_number(input) : (output.puts INCORRECT_INPUT)
     end
+
+    private
 
     def correct_input?(input)
-      return true if (input.length == 4 && input !~ /\D/)
-      output.puts "Try guessing a number with four digits"
-      return false
+      input.length == 4 && input !~ /\D/
     end
 
-    def compare_input(input)
+    def compare_input_to_secret_number(input)
       count = 0
       input.each_char { |number| count += 1 if @secret_number.include? number}
-      count == 0 ? (output.puts "") : number_correct(input)
+      count == 0 ? (output.puts NO_MATCH) : find_correct_numbers(input)
     end
 
-    def number_correct(input)
-      feedback = ""
+    def find_correct_numbers(input)
+      find_number_matches(input)
+      find_exact_number_matches(input)
+      output.puts @feedback
+    end
+
+    def find_number_matches(input)
       temp_secret_number = @secret_number.dup
       input.each_char do |number|
         if temp_secret_number.include? number
-          feedback += "-"
+          @feedback += NUMBER_MATCH
           temp_secret_number.sub!(number, "")
         end
       end
+    end
+
+    def find_exact_number_matches(input)
       input.each_char.with_index do |number, index|
-        if @secret_number.index(number) == index
-          feedback.sub!("-", "+")
-        end
+        @feedback.sub!(NUMBER_MATCH, EXACT_MATCH) if @secret_number.index(number) == index
       end
-      feedback.length == 0 ? (output.puts "-") : (output.puts feedback)
     end
 
   end
