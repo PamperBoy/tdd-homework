@@ -31,11 +31,16 @@ class Codebreaker
     end
 
     def number_correct(input)
-      count = 0
       feedback = ""
       input.each_char do |number|
+        if @secret_number.include? number
+          feedback += "-"
+        end
+      end
+      count = 0
+      input.each_char do |number|
         if @secret_number.index(number) == count
-          feedback += "+"
+          feedback.sub!("-", "+")
         end
         count += 1
       end
