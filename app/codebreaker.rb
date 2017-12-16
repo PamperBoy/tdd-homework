@@ -14,10 +14,19 @@ class Codebreaker
     end
 
     def guess(input)
-      # Make sure to replace next line with the actual implemented marking algorithm,
-      # using the @secret_number
+      correct_input?(input)
+      compare_input(input)
+    end
 
-      output.puts "you typed '#{input}'"
+    def correct_input?(input)
+      return if (input.length == 4 && input.to_i.to_s.length == 4)
+      output.puts "Try guessing a number with four digits"
+    end
+
+    def compare_input(input)
+      count = 0
+      input.each_char { |number| count += 1 if @secret_number.include? number}
+      count == 0 ? (output.puts "") : (output.puts "-")
     end
   end
 end
