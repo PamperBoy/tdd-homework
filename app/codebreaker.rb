@@ -8,7 +8,6 @@ class Codebreaker
 
     def initialize(output)
       @output = output
-      @feedback = ""
     end
 
     def start(secret_number)
@@ -19,42 +18,37 @@ class Codebreaker
     end
 
     def guess(input)
-      correct_input?(input) ? compare_input_to_secret_number(input) : (output.puts INCORRECT_INPUT)
+      output.puts generate_feedback(input)
     end
 
     private
+
+    def generate_feedback(input)
+      correct_input?(input) ? generate_guidance(input) : INCORRECT_INPUT
+    end
 
     def correct_input?(input)
       input.length == 4 && input !~ /\D/
     end
 
-    def compare_input_to_secret_number(input)
-      count = 0
-      input.each_char { |number| count += 1 if @secret_number.include? number}
-      count == 0 ? (output.puts NO_MATCH) : find_correct_numbers(input)
+    def generate_guidance(input)
+      matches = find_matches(input)
+      matches.length == 0 ? NO_MATCH : include_exact_matches(input, matches)
     end
 
-    def find_correct_numbers(input)
-      find_number_matches(input)
-      find_exact_number_matches(input)
-      output.puts @feedback
-    end
-
-    def find_number_matches(input)
-      temp_secret_number = @secret_number.dup
+    def find_matches(input)
+      unmatched_numbers = @secret_number.dup
       input.each_char do |number|
-        if temp_secret_number.include? number
-          @feedback += NUMBER_MATCH
-          temp_secret_number.sub!(number, "")
-        end
+          unmatched_numbers.sub!(number, "") if unmatched_numbers.include? number
       end
+      NUMBER_MATCH * (@secret_number.length - unmatched_numbers.length)
     end
 
-    def find_exact_number_matches(input)
+    def include_exact_matches(input, matches)
       input.each_char.with_index do |number, index|
-        @feedback.sub!(NUMBER_MATCH, EXACT_MATCH) if @secret_number.index(number) == index
+        matches.sub!(NUMBER_MATCH, EXACT_MATCH) if @secret_number[index] == number
       end
+      matches
     end
-
   end
 end
