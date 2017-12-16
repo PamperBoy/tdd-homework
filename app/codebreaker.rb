@@ -19,7 +19,7 @@ class Codebreaker
     end
 
     def correct_input?(input)
-      return true if (input.length == 4 && input.to_i.to_s.length == 4)
+      return true if (input.length == 4 && input !~ /\D/)
       output.puts "Try guessing a number with four digits"
       return false
     end
