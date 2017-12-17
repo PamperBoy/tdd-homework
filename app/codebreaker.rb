@@ -14,18 +14,21 @@ class Codebreaker
     end
 
     def match_number_check(input)
+      result = []
       match_result = []
+      exact_result = []
 
       @secret_number.each_char.with_index do |snum, i|
         if input.include?(snum) && i == input.index(snum)
-          match_result.unshift("+")
+          exact_result.unshift("+")
         elsif input.include?(snum)
-          match_result << "-"
+          match_result.insert(4, "-")
         else
-          match_result << ""
+          result << ""
         end
       end
-      output.puts match_result.join("")
+      result = exact_result.concat(match_result)
+      output.puts result.join("")
     end
 
     def guess(input)
