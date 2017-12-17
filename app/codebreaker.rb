@@ -19,13 +19,15 @@ class Codebreaker
       exact_result = []
 
       @secret_number.each_char.with_index do |snum, i|
-        if input.include?(snum) && i == input.index(snum)
-          exact_result.unshift("+")
+        if input[i] == snum && input.include?(snum)
+          exact_result << "+"
+
         elsif input.include?(snum)
-          match_result.insert(4, "-")
+          match_result << "-"
         else
           result << ""
         end
+
       end
       result = exact_result.concat(match_result)
       output.puts result.join("")
