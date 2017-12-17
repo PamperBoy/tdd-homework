@@ -15,16 +15,12 @@ class Codebreaker
 
     def match_number_check(input)
       match_result = []
-      input_numbers = input.split("")
-      secret_numbers = @secret_number.split("")
 
-      input_numbers.each_with_index do | input_number, i |
-        if @secret_number.include?(input_number)
-          if secret_numbers[i] == input_number
-            match_result << "+"
-          else
-            match_result << "-"
-          end
+      @secret_number.each_char.with_index do |snum, i|
+        if input.include?(snum) && i == input.index(snum)
+          match_result.unshift("+")
+        elsif input.include?(snum)
+          match_result << "-"
         else
           match_result << ""
         end
