@@ -13,11 +13,46 @@ class Codebreaker
       output.puts "Enter guess:"
     end
 
-    def guess(input)
-      # Make sure to replace next line with the actual implemented marking algorithm,
-      # using the @secret_number
+    def checkity(input)
+      match_result = []
+      input_numbers = input.split("")
+      secret_numbers = @secret_number.split("")
 
-      output.puts "you typed '#{input}'"
+      input_numbers.each_with_index do | input_number, i |
+        if @secret_number.include?(input_number)
+          if secret_numbers[i] == input_number
+            match_result << "+"
+          else
+            match_result << "-"
+          end
+        else
+          match_result << ""
+        end
+      end
+      output.puts match_result.join("")
+    end
+
+    def guess(input)
+
+      if input.length != 4
+        output.puts "Try guessing a number with four digits"
+      else
+        checkity(input)
+      end
+
+      if input != @secret_number
+        output.puts ""
+      end
+
+
+
+
+
+
+
+
+
+
     end
   end
 end
