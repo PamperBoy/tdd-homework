@@ -1,10 +1,12 @@
 class Codebreaker
   class Game
     attr_reader :output
-    INCORRECT_INPUT = "Try guessing a number with four digits"
-    NUMBER_MATCH = "-"
-    EXACT_MATCH = "+"
-    NO_MATCH = ""
+    WELCOME_MESSAGE.freeze = 'Welcome to Codebreaker'
+    ASK_GUESS.freeze = 'Enter guess:'
+    INCORRECT_INPUT.freeze = 'Try guessing a number with four digits'
+    NUMBER_MATCH.freeze = '-'
+    EXACT_MATCH.freeze = '+'
+    NO_MATCH.freeze = ''
 
     def initialize(output)
       @output = output
@@ -13,8 +15,8 @@ class Codebreaker
     def start(secret_number)
       @secret_number = secret_number
 
-      output.puts "Welcome to Codebreaker"
-      output.puts "Enter guess:"
+      output.puts WELCOME_MESSAGE
+      output.puts ASK_GUESS
     end
 
     def guess(input)
@@ -33,13 +35,13 @@ class Codebreaker
 
     def generate_guidance(input)
       matches = find_matches(input)
-      matches.length == 0 ? NO_MATCH : include_exact_matches(input, matches)
+      matches.empty? ? NO_MATCH : include_exact_matches(input, matches)
     end
 
     def find_matches(input)
       unmatched_numbers = @secret_number.dup
       input.each_char do |number|
-          unmatched_numbers.sub!(number, "") if unmatched_numbers.include? number
+        unmatched_numbers.sub!(number, '') if unmatched_numbers.include? number
       end
       NUMBER_MATCH * (@secret_number.length - unmatched_numbers.length)
     end
