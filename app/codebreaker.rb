@@ -13,7 +13,7 @@ class Codebreaker
       output.puts "Enter guess:"
     end
 
-    def checkity(input)
+    def match_number_check(input)
       match_result = []
       input_numbers = input.split("")
       secret_numbers = @secret_number.split("")
@@ -33,26 +33,14 @@ class Codebreaker
     end
 
     def guess(input)
-
       if input.length != 4
         output.puts "Try guessing a number with four digits"
       else
-        checkity(input)
+        match_number_check(input)
       end
-
       if input != @secret_number
         output.puts ""
       end
-
-
-
-
-
-
-
-
-
-
     end
   end
 end
