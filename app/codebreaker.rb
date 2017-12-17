@@ -18,15 +18,14 @@ class Codebreaker
       respond(GUESS_MSG)
     end
 
-    def respond(message)
-      output.puts message
-    end
-
     def guess(input)
       valid_answer?(input) ? respond(RETRY_MSG) : match_number_check(input)
     end
 
     private
+    def respond(message)
+      output.puts message
+    end
 
     def valid_answer?(input)
       input.length != @secret_number.length
