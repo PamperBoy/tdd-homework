@@ -119,10 +119,10 @@ RSpec.describe Codebreaker do
         game.guess(input)
       end
 
-      it "1 exact match and 1 number match (in that order) sends a mark with '--'" do
-        game.start('1234')
+      it "1 exact match and 1 number match (in that order) sends a mark with '+-'" do
+        game.start(secret_number)
         input = '4151'
-        expect(output).to receive(:puts).with('--')
+        expect(output).to receive(:puts).with('+-')
 
         game.guess(input)
       end
@@ -157,7 +157,7 @@ RSpec.describe Codebreaker do
 
       it "1 exact match, 1 number match and 1 exact match (in that order) sends a mark with '++-'" do
         game.start(secret_number)
-        input = '5760'
+        input = '5708'
         expect(output).to receive(:puts).with('++-')
 
         game.guess(input)
@@ -165,7 +165,7 @@ RSpec.describe Codebreaker do
 
       it "1 number match and 2 exact matches (in that order) sends a mark with '++-'" do
         game.start(secret_number)
-        input = '48670'
+        input = '8670'
         expect(output).to receive(:puts).with('++-')
 
         game.guess(input)
@@ -218,7 +218,7 @@ RSpec.describe Codebreaker do
         game.guess(input)
       end
 
-      it "a number match at the end overrules a number match" do
+      it "an exact match at the end overrules a number match" do
         game.start(secret_number)
         input = '4444'
         expect(output).to receive(:puts).with('+')
@@ -226,5 +226,6 @@ RSpec.describe Codebreaker do
         game.guess(input)
       end
     end
+
   end
 end
