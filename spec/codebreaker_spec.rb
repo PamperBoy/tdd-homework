@@ -119,10 +119,10 @@ RSpec.describe Codebreaker do
         game.guess(input)
       end
 
-      it "1 exact match and 1 number match (in that order) sends a mark with '+-'" do
+      it "1 exact match and 1 number match (in that order) sends a mark with '--'" do
         game.start('1234')
         input = '4151'
-        expect(output).to receive(:puts).with('+-')
+        expect(output).to receive(:puts).with('--')
 
         game.guess(input)
       end
