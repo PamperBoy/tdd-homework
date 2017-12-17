@@ -218,7 +218,7 @@ RSpec.describe Codebreaker do
         game.guess(input)
       end
 
-      it "a number match at the end overrules a number match" do
+      it "an exact match at the end overrules a number match" do
         game.start(secret_number)
         input = '4444'
         expect(output).to receive(:puts).with('+')
