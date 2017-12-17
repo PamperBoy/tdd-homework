@@ -16,8 +16,18 @@ class Codebreaker
     def guess(input)
       # Make sure to replace next line with the actual implemented marking algorithm,
       # using the @secret_number
+      # output.puts "you typed '#{input}'"
 
-      output.puts "you typed '#{input}'"
+
+      if input.length != 4
+        output.puts "Try guessing a number with four digits"
+      end
+
+      if input != @secret_number
+        output.puts ""
+      end
+
+
     end
   end
 end
