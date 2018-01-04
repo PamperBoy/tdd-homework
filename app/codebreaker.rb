@@ -1,12 +1,12 @@
 class Codebreaker
   class Game
     attr_reader :output
-    WELCOME_MESSAGE.freeze = 'Welcome to Codebreaker'
-    ASK_GUESS.freeze = 'Enter guess:'
-    INCORRECT_INPUT.freeze = 'Try guessing a number with four digits'
-    NUMBER_MATCH.freeze = '-'
-    EXACT_MATCH.freeze = '+'
-    NO_MATCH.freeze = ''
+    WELCOME_MESSAGE = 'Welcome to Codebreaker'.freeze
+    ASK_GUESS = 'Enter guess:'.freeze
+    INCORRECT_INPUT = 'Try guessing a number with four digits'.freeze
+    NUMBER_MATCH = '-'.freeze
+    EXACT_MATCH = '+'.freeze
+    NO_MATCH = ''.freeze
 
     def initialize(output)
       @output = output
